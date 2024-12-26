@@ -6,6 +6,7 @@ const { CartPage } = require("../pages/cart-page");
 const { CheckoutPage } = require("../pages/checkout-page");
 
 test.describe("Functional Tests", () => {
+  // Perform login before each test case
   test.beforeEach("Login", async ({ page }) => {
     const loginPage = new LoginPage(page);
 
@@ -21,9 +22,9 @@ test.describe("Functional Tests", () => {
 
     await allItemsPage.sortItems(order);
     const itemNames = await allItemsPage.getItemNames();
-    const sortedNames = itemNames.slice().sort().reverse();
+    const sortedNames = itemNames.slice().sort().reverse(); // Sort names in descending order
 
-    expect(itemNames).toEqual(sortedNames);
+    expect(itemNames).toEqual(sortedNames); // Verify sort order
   });
 
   // --------------------------------------------------------------------
@@ -39,9 +40,9 @@ test.describe("Functional Tests", () => {
     const sortedPrices = itemPrices
       .slice()
       .sort((a, b) => a - b)
-      .reverse();
+      .reverse(); // Sort prices in descending order
 
-    expect(itemPrices).toEqual(sortedPrices);
+    expect(itemPrices).toEqual(sortedPrices); // Verify sort order
   });
 
   // --------------------------------------------------------------------
@@ -53,8 +54,11 @@ test.describe("Functional Tests", () => {
 
     await allItemsPage.addItemsToCart(testData.items);
     await cartPage.goToCart();
-    await cartPage.goToCheckout();
+    const cartItems = await cartPage.getCartItems();
 
+    expect(cartItems).toEqual(testData.items); // Verify cart items
+
+    await cartPage.goToCheckout();
     await checkoutPage.fillCheckoutDetails(
       testData.firstName,
       testData.lastName,
@@ -63,6 +67,6 @@ test.describe("Functional Tests", () => {
     await checkoutPage.finishCheckout();
     const message = await checkoutPage.getMessageText();
 
-    expect(message).toContain("Thank you for your order!");
+    expect(message).toContain("Thank you for your order!"); // Verify message
   });
 });

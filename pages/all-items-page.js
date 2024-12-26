@@ -5,7 +5,7 @@ export class AllItemsPage {
   constructor(page) {
     this.page = page;
     this.sortDropdown = ".product_sort_container";
-    this.items = "inventory_item";
+    this.items = ".inventory_item";
     this.addToCartButtons = ".btn_inventory";
   }
 
@@ -36,7 +36,7 @@ export class AllItemsPage {
 
   async addItemsToCart(items) {
     for (const item of items) {
-      this.addItemToCart(item);
+      await this.addItemToCart(item);
     }
   }
 }
