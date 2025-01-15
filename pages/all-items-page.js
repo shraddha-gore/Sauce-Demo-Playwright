@@ -6,7 +6,6 @@ export class AllItemsPage {
     this.page = page;
     this.sortDropdown = ".product_sort_container";
     this.items = ".inventory_item";
-    this.addToCartButtons = ".btn_inventory";
   }
 
   async sortItems(order) {
